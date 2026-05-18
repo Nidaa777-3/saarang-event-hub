@@ -17,6 +17,7 @@ This application is custom-tailored for **Saarang**, the annual cultural festiva
 
 <img width="30%" alt="Explore Hub" src="https://github.com/user-attachments/assets/7a9e5a17-f90a-4236-985b-01c00dcef9d8" /><img width="30%" alt="Auth Flow" src="https://github.com/user-attachments/assets/87d56fd6-ad75-4280-a7c8-245db9ff574d" /><img width="30%" alt="Event Details" src="https://github.com/user-attachments/assets/85410404-ee5f-4cbb-84bd-63000b01e19c" /><img width="30%" alt="Ticket Management" src="https://github.com/user-attachments/assets/ab7d8a98-9e6d-41fd-a505-2c810bc95a85" /><img width="30%" alt="User Profile" src="https://github.com/user-attachments/assets/35ed7f54-10bd-454c-9cea-d0de9134fa96" /><img width="30%" alt="App Screen 6" src="https://github.com/user-attachments/assets/10c62b91-103b-4820-9c08-81b7fc486eaf" /><img width="30%" alt="App Screen 7" src="https://github.com/user-attachments/assets/5f7b292f-b0f8-47af-b9ad-cea0390772fd" /><img width="30%" alt="App Screen 8" src="https://github.com/user-attachments/assets/667847e3-8f17-4d52-aed5-921110f1b6f1" />
 
+Link to live App - https://expo.dev/accounts/nidaaa/projects/saarang-event-hub
 
 ##  Project Organization
 
@@ -64,10 +65,6 @@ Open a new terminal window inside the root directory (`saarang-event-hub`), inst
 npm install
 npx expo start
 ```
-
-### 3. Connect to Emulator or Mobile
-* **Expo Go (Physical Device)**: Scan the QR code on your terminal using the Expo Go app (Android) or the native Camera app (iOS).
-* **Emulators**: Press `a` in the terminal to boot up Android Studio Emulator, or `i` to launch Xcode iOS Simulator.
 
 
 
