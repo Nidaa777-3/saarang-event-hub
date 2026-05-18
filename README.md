@@ -1,13 +1,24 @@
+<<<<<<< Updated upstream
 
+=======
+# Saarang Event Hub 🎪📱
 
-1. Install dependencies
+Welcome to the **Saarang Event Hub**, a premium, high-fidelity mobile event explorer and management application built using **React Native**, **Expo SDK 54**, **Expo Router**, and **Zustand**. 
 
-   ```bash
-   npm install
-   ```
+This application is custom-tailored for **Saarang**, the annual cultural festival of IIT Madras, featuring an immersive, state-of-the-art UI/UX design with vibrant gradients, sleek light modes, and a dedicated **JWT Authentication Node.js Backend Server**!
+>>>>>>> Stashed changes
 
-2. Start the app
+---
 
+## ✨ Features & Visual Highlights
+
+### 💾 1. Fully-Integrated Node.js + JWT Backend (`server/`)
+* **Real API Connections**: Signup, Login, Event Loading, and Ticket Registrations are fully connected to a secure Express API server.
+* **Persistent Sessions**: Employs `@react-native-async-storage/async-storage` on the mobile client to save JWT sessions, letting users stay logged in securely across app launches.
+* **Universal IP Auto-Resolution**: The client automatically resolves your development machine's local IP address dynamically on launch. This allows physical phones (on local Wi-Fi) and emulators to communicate with your backend instantly with zero config.
+* **File-Based Database**: Uses a clean, self-contained JSON-file persistent database (`server/db.json`), requiring **zero database installation** for reviewers!
+
+<<<<<<< Updated upstream
    ```bash
    npx expo start
    ```
@@ -29,3 +40,107 @@
 
 
 
+=======
+### 🔒 2. Branded Auth Flow (`(auth)/`)
+* **Design Excellence**: Login and Sign-up screens feature custom branding, dynamic high-impact header graphics (`bg.png`), premium bottom-right curved border masks, and semi-transparent inputs.
+* **Cohesive Transitions**: Forms utilize low-opacity modern labels, clean input fields, and a vibrant red-to-orange `LinearGradient` action button.
+* **Unified Aesthetics**: The sign-up layout perfectly mirrors the login screen, with fields adapted for a seamless, branded user onboarding.
+
+### 🧭 3. Clean 'Explore' Feed (`(tabs)/index.jsx`)
+* **Curved Brand Header**: A dark, curved top bar leveraging the premium `bg2.png` asset with custom Saarang typography, branding logo, and quick-profile triggers.
+* **Dynamic Categories**: Scrollable category pills (All, Proshows, Spotlight, etc.) allowing users to browse events instantly.
+* **Shadow-Cast Event Cards**: Beautiful card layouts displaying event details, alternating between key visual elements (`event1.png` & `event2.png`), complete with calendar/location outline icons, drop shadows, and swift arrow-right indicators.
+
+### 🎟️ 4. Sleek Custom Navigation (`(tabs)/_layout.jsx`)
+* **Floating Capsule Tab Bar**: Swapped the traditional attached bar for a gorgeous floating **"pill"** style white navigation capsule sitting at the bottom of the screen.
+* **Vertical Alignment**: Fully centered out-of-box icons with custom top offsets to keep the layout feeling perfectly balanced, lightweight, and modern.
+
+### 📋 5. Event Details Modal (`event/[id].jsx`)
+* **Immersive Design**: A custom-made curved header with back navigation buttons and clean details title.
+* **Feature Cards**: Shows date, time, and location indicators inside elegant horizontal row widgets (icon-left, content-right) instead of stacked labels.
+* **Action Footer**: Premium fixed bottom panel with a reactive "Register" button utilizing custom colors and gradient states.
+
+### 🎫 6. My Tickets (`(tabs)/my-events.jsx`)
+* A dedicated dashboard displaying registered events in horizontal, highly visual shadow cards with "Registered" badges and quick-nav shortcuts.
+* Custom, user-friendly empty states guiding users back to the Explore feed.
+
+### 👤 7. Branded Profile (`(tabs)/profile.jsx`)
+* Features a stylized avatar bordered with custom gradients, premium horizontal statistics badges for tickets and pro-status, and a sleek modern logout action sheet.
+
+---
+
+## 📂 Project Organization
+
+The codebase is structured to enforce modularity, readability, and speed of navigation:
+
+```text
+saarang-event-hub/
+├── assets/              # Original design resources & icon assets
+├── server/              # Real Node.js Express + JWT persistent backend API
+│   ├── db.json          # Persistent file-based SQLite-like database
+│   ├── package.json     # Backend server dependencies
+│   └── server.js        # Auth, JWT, event list, & registration endpoints
+├── src/
+│   ├── app/             # Expo file-system based routing layers
+│   │   ├── (auth)/      # Onboarding flows (login.jsx, signup.jsx)
+│   │   ├── (tabs)/      # Main capsule tab bar layout & core views
+│   │   │   ├── _layout.jsx    # Floating pill-bar navigation config
+│   │   │   ├── index.jsx      # Explore feed (Events)
+│   │   │   ├── my-events.jsx  # Registrations & Tickets tracker
+│   │   │   └── profile.jsx    # Stats, badges, & options screen
+│   │   ├── event/       # Event detail modal directory
+│   │   │   └── [id].jsx       # Immersive event layout
+│   │   └── _layout.jsx  # Global layout provider & router stack options
+│   └── store/           # Global State Management
+│       └── index.js     # Zustand state-store (events data, registration logic, auth actions)
+└── README.md            # Project guide, documentation, and screenshots
+```
+
+---
+
+## 🚀 Running the Project Locally
+
+### 1. Launch the Backend API Server
+Navigate to the `server` directory, install packages, and boot up the server:
+```bash
+cd server
+npm install
+npm start
+```
+*The backend API will run natively on `http://localhost:5000` (and binds globally to allow mobile connection over local Wi-Fi).*
+
+### 2. Launch the Mobile Client
+Open a new terminal window inside the root directory (`saarang-event-hub`), install client packages, and boot up the app:
+```bash
+npm install
+npx expo start
+```
+
+### 3. Connect to Emulator or Mobile
+* **Expo Go (Physical Device)**: Scan the QR code on your terminal using the Expo Go app (Android) or the native Camera app (iOS).
+* **Emulators**: Press `a` in the terminal to boot up Android Studio Emulator, or `i` to launch Xcode iOS Simulator.
+
+---
+
+## 📸 App Showcase
+
+### Explore Feed & Bottom Capsule
+![Explore Feed & Bottom Tab Bar](./assets/explore_mockup.png)
+
+### Branded Auth Flow
+![Auth Screens](./assets/login_mockup.png)
+
+> [!NOTE]
+> All core visual assets (including `event1.png`, `event2.png`, `bg.png`, and `bg2.png`) are located securely inside `src/app/assets/` to ensure offline readiness and fast image loading inside Expo Go.
+
+---
+
+## 🛠️ Tech Stack & Libraries
+* **Client Framework**: [Expo SDK 54](https://expo.dev) (React Native)
+* **Backend Framework**: [Node.js Express](https://expressjs.com/)
+* **Routing**: [Expo Router v3](https://docs.expo.dev/router/introduction/) (File-based)
+* **Session Persistence**: `@react-native-async-storage/async-storage`
+* **Gradients**: `expo-linear-gradient`
+* **Icons**: `@expo/vector-icons` (Feather, Ionicons)
+* **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+>>>>>>> Stashed changes

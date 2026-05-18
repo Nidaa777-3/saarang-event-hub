@@ -4,9 +4,13 @@ import { useAppStore } from '../store';
 import { StatusBar } from 'expo-status-bar';
 
 export default function RootLayout() {
-  const { isAuthenticated } = useAppStore();
+  const { isAuthenticated, initStore } = useAppStore();
   const segments = useSegments();
   const router = useRouter();
+
+  useEffect(() => {
+    initStore();
+  }, []);
 
   useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)';

@@ -1,90 +1,168 @@
 import { create } from 'zustand';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
-const mockEvents = [
-  {
-    id: 'e1',
-    title: 'Pop Night',
-    date: '2026-06-15T20:00:00Z',
-    description: 'Get ready for an electrifying night of music and dance at the main arena.',
-    imageUrl: 'https://images.unsplash.com/photo-1470229722913-7c090be5c5a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'e2',
-    title: 'Rock Night',
-    date: '2026-06-16T10:00:00Z',
-    description: 'Learn about the latest advancements in Artificial Intelligence from industry leaders.',
-    imageUrl: 'https://images.unsplash.com/photo-1488229297570-58520851e868?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'e3',
-    title: 'Spotlight',
-    date: '2026-06-17T09:00:00Z',
-    description: 'A 24-hour coding marathon to solve real-world problems. Cash prizes up for grabs!',
-    imageUrl: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'e4',
-    title: 'Spotlight 2',
-    date: '2026-06-18T18:00:00Z',
-    description: 'Laugh your heart out with top comedians from around the country.',
-    imageUrl: 'https://images.unsplash.com/photo-1585699324551-f6c309eedeca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-  },
-];
+const getApiUrl = () => {
+  // Detect development machine IP (works perfectly inside physical devices, emulators, and Expo Go)
+  const hostUri = Constants.expoConfig?.hostUri;
+  const ip = hostUri ? hostUri.split(':')[0] : 'localhost';
+  return `http://${ip}:5000/api`;
+};
+
+const API_URL = getApiUrl();
+console.log('Connecting to Saarang Backend API at:', API_URL);
 
 export const useAppStore = create((set, get) => ({
   user: null,
   isAuthenticated: false,
-  events: mockEvents,
+  events: [],
   registrations: [],
+  token: null,
+  isLoading: false,
 
-  login: async (email, pass) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (email && pass) {
-          set({
-            user: { id: 'u1', email, name: email.split('@')[0] },
-            isAuthenticated: true,
-          });
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      }, 500);
-    });
-  },
-
-  signup: async (email, pass, name) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (email && pass && name) {
-          set({
-            user: { id: 'u2', email, name },
-            isAuthenticated: true,
-          });
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      }, 500);
-    });
-  },
-
-  logout: () => {
-    set({ user: null, isAuthenticated: false, registrations: [] });
-  },
-
-  registerForEvent: (eventId) => {
-    set((state) => {
-      if (!state.registrations.includes(eventId)) {
-        return { registrations: [...state.registrations, eventId] };
+  // Initialize store: load token from storage, load events
+  initStore: async () => {
+    try {
+      set({ isLoading: true });
+      
+      // Load events first (open endpoint)
+      const eventsRes = await fetch(`${API_URL}/events`);
+      if (eventsRes.ok) {
+        const eventsData = await eventsRes.json();
+        set({ events: eventsData });
       }
-      return state;
-    });
+
+      // Load token and user
+      const token = await AsyncStorage.getItem('saarang_token');
+      const userData = await AsyncStorage.getItem('saarang_user');
+
+      if (token && userData) {
+        const parsedUser = JSON.parse(userData);
+        set({ token, user: parsedUser, isAuthenticated: true });
+        
+        // Fetch registrations from server using token
+        await get().fetchRegistrations(token);
+      }
+    } catch (err) {
+      console.error('Error initializing store:', err);
+    } finally {
+      set({ isLoading: false });
+    }
   },
 
-  unregisterFromEvent: (eventId) => {
-    set((state) => ({
-      registrations: state.registrations.filter((id) => id !== eventId),
-    }));
+  fetchRegistrations: async (tokenVal) => {
+    const activeToken = tokenVal || get().token;
+    if (!activeToken) return;
+
+    try {
+      const res = await fetch(`${API_URL}/registrations`, {
+        headers: { 'Authorization': `Bearer ${activeToken}` }
+      });
+      if (res.ok) {
+        const regData = await res.json();
+        set({ registrations: regData });
+      }
+    } catch (err) {
+      console.error('Error fetching registrations:', err);
+    }
   },
+
+  login: async (email, password) => {
+    try {
+      const res = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.token) {
+        await AsyncStorage.setItem('saarang_token', data.token);
+        await AsyncStorage.setItem('saarang_user', JSON.stringify(data.user));
+        set({ 
+          token: data.token, 
+          user: data.user, 
+          isAuthenticated: true 
+        });
+        // Fetch user's registrations
+        await get().fetchRegistrations(data.token);
+        return true;
+      } else {
+        alert(data.error || 'Login failed');
+        return false;
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('Could not connect to API server');
+      return false;
+    }
+  },
+
+  signup: async (email, password, name) => {
+    try {
+      const res = await fetch(`${API_URL}/auth/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, name })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.token) {
+        await AsyncStorage.setItem('saarang_token', data.token);
+        await AsyncStorage.setItem('saarang_user', JSON.stringify(data.user));
+        set({ 
+          token: data.token, 
+          user: data.user, 
+          isAuthenticated: true 
+        });
+        await get().fetchRegistrations(data.token);
+        return true;
+      } else {
+        alert(data.error || 'Signup failed');
+        return false;
+      }
+    } catch (err) {
+      console.error('Signup error:', err);
+      alert('Could not connect to API server');
+      return false;
+    }
+  },
+
+  logout: async () => {
+    try {
+      await AsyncStorage.removeItem('saarang_token');
+      await AsyncStorage.removeItem('saarang_user');
+      set({ user: null, isAuthenticated: false, registrations: [], token: null });
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  },
+
+  registerForEvent: async (eventId) => {
+    const token = get().token;
+    if (!token) return;
+
+    try {
+      const res = await fetch(`${API_URL}/registrations/toggle`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ eventId })
+      });
+
+      if (res.ok) {
+        // Fetch refreshed registrations list
+        await get().fetchRegistrations();
+      }
+    } catch (err) {
+      console.error('Error toggling registration:', err);
+    }
+  },
+
+  unregisterFromEvent: async (eventId) => {
+    // Under backend API, both registering and unregistering use toggle endpoint
+    await get().registerForEvent(eventId);
+  }
 }));

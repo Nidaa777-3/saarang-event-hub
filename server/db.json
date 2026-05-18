@@ -5,12 +5,18 @@
       "name": "Nida",
       "email": "nidaparavath@gmail.coss",
       "password": "$2a$10$NLdxkTKRz52lpceBGiiKzur7VIWdMqkgx/04dSTDs2HlEzBQOcutu"
+    },
+    {
+      "id": "1779133354048",
+      "name": "Nn",
+      "email": "nn@gmail.com",
+      "password": "$2a$10$oNWq5JqDosYtbXmjlhlOCuJUswf6jn0JXohs2cB9.yT.POg5/Kd1i"
     }
   ],
   "registrations": [
     {
-      "id": "1779132463924",
-      "userId": "1779132434186",
+      "id": "1779133376513",
+      "userId": "1779133354048",
       "eventId": "1"
     }
   ],

@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F6F8',
   },
   headerContainer: {
-    height: 240,
+    height: 260,
     borderBottomRightRadius: 60,
     backgroundColor: '#000',
     overflow: 'hidden',
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   headerImage: {
     flex: 1,
     width: '100%',
-    paddingTop: 50,
+    paddingTop: 70,
   },
   headerImageStyle: {
     opacity: 0.8,
