@@ -16,9 +16,9 @@ This application is custom-tailored for **Saarang**, the annual cultural festiva
 * **File-Based Database**: Uses a clean, self-contained JSON-file persistent database (`server/db.json`), requiring **zero database installation** for reviewers!
 
 
-<img width="738" height="1600" alt="WhatsApp Image 2026-05-18 at 11 50 32 PM" src="https://github.com/user-attachments/assets/7a9e5a17-f90a-4236-985b-01c00dcef9d8" />
+<img width="738/3" height="1600/3" alt="WhatsApp Image 2026-05-18 at 11 50 32 PM" src="https://github.com/user-attachments/assets/7a9e5a17-f90a-4236-985b-01c00dcef9d8" />
 
-<img width="738" height="1600" alt="WhatsApp Image 2026-05-18 at 11 50 32 PM (1)" src="https://github.com/user-attachments/assets/87d56fd6-ad75-4280-a7c8-245db9ff574d" />
+<img width="738/3" height="1600/3" alt="WhatsApp Image 2026-05-18 at 11 50 32 PM (1)" src="https://github.com/user-attachments/assets/87d56fd6-ad75-4280-a7c8-245db9ff574d" />
 
 <img width="738" height="1600" alt="WhatsApp Image 2026-05-18 at 11 50 29 PM" src="https://github.com/user-attachments/assets/85410404-ee5f-4cbb-84bd-63000b01e19c" />
 
@@ -88,20 +88,7 @@ npx expo start
 * **Expo Go (Physical Device)**: Scan the QR code on your terminal using the Expo Go app (Android) or the native Camera app (iOS).
 * **Emulators**: Press `a` in the terminal to boot up Android Studio Emulator, or `i` to launch Xcode iOS Simulator.
 
----
 
-## 📸 App Showcase
-
-### Explore Feed & Bottom Capsule
-![Explore Feed & Bottom Tab Bar](./assets/explore_mockup.png)
-
-### Branded Auth Flow
-![Auth Screens](./assets/login_mockup.png)
-
-> [!NOTE]
-> All core visual assets (including `event1.png`, `event2.png`, `bg.png`, and `bg2.png`) are located securely inside `src/app/assets/` to ensure offline readiness and fast image loading inside Expo Go.
-
----
 
 ## 🛠️ Tech Stack & Libraries
 * **Client Framework**: [Expo SDK 54](https://expo.dev) (React Native)
@@ -111,4 +98,4 @@ npx expo start
 * **Gradients**: `expo-linear-gradient`
 * **Icons**: `@expo/vector-icons` (Feather, Ionicons)
 * **State Management**: [Zustand](https://github.com/pmndrs/zustand)
->>>>>>> Stashed changes
+
