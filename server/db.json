@@ -1,0 +1,51 @@
+{
+  "users": [
+    {
+      "id": "1779132434186",
+      "name": "Nida",
+      "email": "nidaparavath@gmail.coss",
+      "password": "$2a$10$NLdxkTKRz52lpceBGiiKzur7VIWdMqkgx/04dSTDs2HlEzBQOcutu"
+    }
+  ],
+  "registrations": [
+    {
+      "id": "1779132463924",
+      "userId": "1779132434186",
+      "eventId": "1"
+    }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "title": "Pop Night",
+      "category": "Proshows",
+      "date": "2026-05-23T18:00:00Z",
+      "location": "Open Air Theatre",
+      "description": "Get ready for the most sensational EDM and Pop experience of the year! Join international charts-toppers and thousands of music fans in an electric atmosphere under the stars."
+    },
+    {
+      "id": "2",
+      "title": "Rock Night",
+      "category": "Proshows",
+      "date": "2026-05-24T18:00:00Z",
+      "location": "SAC Ground",
+      "description": "Experience raw energy and massive riffs with headlining rock legends. Feel the pulse of the guitar and drum solos that define Saarang's legendary rock legacy."
+    },
+    {
+      "id": "3",
+      "title": "Spotlight",
+      "category": "Spotlight",
+      "date": "2026-05-25T14:00:00Z",
+      "location": "CLT",
+      "description": "Watch the brightest minds and coders pitch their groundbreaking ideas to an elite panel of judges. The ultimate showcase of tech talent, creativity, and engineering excellence."
+    },
+    {
+      "id": "4",
+      "title": "Spotlight 2",
+      "category": "Spotlight",
+      "date": "2026-05-26T17:00:00Z",
+      "location": "Open Air Theatre",
+      "description": "Get ready to laugh till your sides hurt! Top tier standup comedians are coming to deliver a hilarious evening of storytelling, sharp observational humor, and non-stop entertainment."
+    }
+  ]
+}
